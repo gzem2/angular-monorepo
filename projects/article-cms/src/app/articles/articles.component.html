@@ -1,0 +1,11 @@
+<app-article-form *ngIf="showEditor === article.id"></app-article-form>
+<div class="article-body" *ngIf="showEditor !== article.id">
+    <div class="title">
+        <h2>{{article.title}}</h2>
+    </div>
+    <div class="content">
+        {{article.content}}
+    </div>
+    <button (click)="editArticle()">Edit</button>
+    <button (click)="deleteArticle()">Delete</button>
+</div>

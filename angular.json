@@ -3,5 +3,126 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-  }
+    "article-cms": {
+      "projectType": "application",
+      "schematics": {
+        "@schematics/angular:component": {
+          "style": "sass"
+        }
+      },
+      "root": "projects/article-cms",
+      "sourceRoot": "projects/article-cms/src",
+      "prefix": "app",
+      "architect": {
+        "build": {
+          "builder": "@angular-devkit/build-angular:browser",
+          "options": {
+            "outputPath": "dist/article-cms",
+            "index": "projects/article-cms/src/index.html",
+            "main": "projects/article-cms/src/main.ts",
+            "polyfills": "projects/article-cms/src/polyfills.ts",
+            "tsConfig": "projects/article-cms/tsconfig.app.json",
+            "aot": true,
+            "assets": [
+              "projects/article-cms/src/favicon.ico",
+              "projects/article-cms/src/assets"
+            ],
+            "styles": [
+              "projects/article-cms/src/styles.sass"
+            ],
+            "scripts": []
+          },
+          "configurations": {
+            "production": {
+              "fileReplacements": [
+                {
+                  "replace": "projects/article-cms/src/environments/environment.ts",
+                  "with": "projects/article-cms/src/environments/environment.prod.ts"
+                }
+              ],
+              "optimization": true,
+              "outputHashing": "all",
+              "sourceMap": false,
+              "namedChunks": false,
+              "extractLicenses": true,
+              "vendorChunk": false,
+              "buildOptimizer": true,
+              "budgets": [
+                {
+                  "type": "initial",
+                  "maximumWarning": "2mb",
+                  "maximumError": "5mb"
+                },
+                {
+                  "type": "anyComponentStyle",
+                  "maximumWarning": "6kb",
+                  "maximumError": "10kb"
+                }
+              ]
+            }
+          }
+        },
+        "serve": {
+          "builder": "@angular-devkit/build-angular:dev-server",
+          "options": {
+            "browserTarget": "article-cms:build"
+          },
+          "configurations": {
+            "production": {
+              "browserTarget": "article-cms:build:production"
+            }
+          }
+        },
+        "extract-i18n": {
+          "builder": "@angular-devkit/build-angular:extract-i18n",
+          "options": {
+            "browserTarget": "article-cms:build"
+          }
+        },
+        "test": {
+          "builder": "@angular-devkit/build-angular:karma",
+          "options": {
+            "main": "projects/article-cms/src/test.ts",
+            "polyfills": "projects/article-cms/src/polyfills.ts",
+            "tsConfig": "projects/article-cms/tsconfig.spec.json",
+            "karmaConfig": "projects/article-cms/karma.conf.js",
+            "assets": [
+              "projects/article-cms/src/favicon.ico",
+              "projects/article-cms/src/assets"
+            ],
+            "styles": [
+              "projects/article-cms/src/styles.sass"
+            ],
+            "scripts": []
+          }
+        },
+        "lint": {
+          "builder": "@angular-devkit/build-angular:tslint",
+          "options": {
+            "tsConfig": [
+              "projects/article-cms/tsconfig.app.json",
+              "projects/article-cms/tsconfig.spec.json",
+              "projects/article-cms/e2e/tsconfig.json"
+            ],
+            "exclude": [
+              "**/node_modules/**"
+            ]
+          }
+        },
+        "e2e": {
+          "builder": "@angular-devkit/build-angular:protractor",
+          "options": {
+            "protractorConfig": "projects/article-cms/e2e/protractor.conf.js",
+            "devServerTarget": "article-cms:serve"
+          },
+          "configurations": {
+            "production": {
+              "devServerTarget": "article-cms:serve:production"
+            }
+          }
+        }
+      }
+    }
+  },
+  "defaultProject": "article-cms"
 }
