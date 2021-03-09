@@ -8,6 +8,7 @@ import { AppComponent } from './app.component';
 import { ArticlesComponent } from './articles/articles.component';
 import { ArticleListComponent } from './article-list/article-list.component';
 import { ArticleFormComponent } from './article-form/article-form.component';
+import { PagerComponent } from './pager/pager.component';
 
 @NgModule({
   declarations: [
@@ -15,6 +16,7 @@ import { ArticleFormComponent } from './article-form/article-form.component';
     ArticlesComponent,
     ArticleListComponent,
     ArticleFormComponent,
+    PagerComponent,
   ],
   imports: [
     BrowserModule,

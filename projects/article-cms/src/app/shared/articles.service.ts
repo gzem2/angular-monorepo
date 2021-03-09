@@ -1,11 +1,9 @@
 import { Injectable } from '@angular/core';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
-
 import { Observable, of } from 'rxjs';
 import { catchError, map, tap } from 'rxjs/operators';
-
 import { Article } from './article';
-
+import { PageData } from './page-data';
 
 @Injectable({ providedIn: 'root' })
 export class ArticlesService {
@@ -23,6 +21,15 @@ export class ArticlesService {
         return this.http.get<Article[]>(url).pipe(
             tap(_ => this.log('fetched articles')),
             catchError(this.handleError<Article[]>('getArticles', []))
+        );
+    }
+
+    getPage(pagenum: number): Observable<PageData> {
+        const url = `${this.articlesUrl}s/page?page=${pagenum}`;
+        return this.http.get(url).pipe(
+            tap(_ => this.log('fetched page')),
+            catchError(this.handleError('getPage')),
+            map(data => <PageData>data)
         );
     }
 

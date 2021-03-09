@@ -19,6 +19,7 @@ $router->get('/', function () use ($router) {
 
 $router->group(['prefix' => 'api/v1'], function () use ($router) {
     $router->get('/articles', 'ArticleController@index');
+    $router->get('/articles/page', 'ArticleController@page');
     $router->post('/article', 'ArticleController@create');
     $router->get('/article/{id}', 'ArticleController@show');
     $router->put('/article/{id}', 'ArticleController@update');

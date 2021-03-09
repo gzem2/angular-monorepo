@@ -1,4 +1,4 @@
-<form (ngSubmit)="newArticle ? onSubmitNew() : onSubmit()" #articleForm="ngForm">
+<form (ngSubmit)="newArticle ? onSubmitNew(articleForm) : onSubmit(articleForm)" #articleForm="ngForm">
 
     <div class="form-group" *ngIf="newArticle !== true">
         <label for="id">id: </label>

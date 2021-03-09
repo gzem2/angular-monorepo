@@ -16,7 +16,14 @@ class ArticleController extends Controller
     public function index()
     {
 
-        $articles = Article::all();
+        $articles = Article::orderBy('id', 'desc')->offset(0)->limit(10)->get();;
+
+        return response()->json($articles);
+    }
+
+    public function page()
+    {
+        $articles = Article::orderBy('id', 'desc')->paginate(10);
 
         return response()->json($articles);
     }

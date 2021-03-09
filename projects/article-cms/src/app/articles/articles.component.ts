@@ -1,7 +1,8 @@
-import { Component, EventEmitter, Input, Output } from '@angular/core';
+import { Component, Input } from '@angular/core';
 import { Article } from '../shared/article';
 import { ArticleEditService } from '../shared/article-edit.service';
 import { ArticlesService } from '../shared/articles.service';
+import { PagerService } from '../shared/pager.service';
 
 @Component({
   selector: 'app-articles',
@@ -10,11 +11,11 @@ import { ArticlesService } from '../shared/articles.service';
 })
 export class ArticlesComponent {
   @Input() article!: Article;
-  @Output() articleDelete = new EventEmitter<number>();
 
   constructor(
     private articlesService: ArticlesService,
     private articleEditService: ArticleEditService,
+    private pagerService: PagerService
   ) { }
 
   editArticle() {
@@ -24,7 +25,7 @@ export class ArticlesComponent {
 
   deleteArticle() {
     this.articlesService.deleteArticle(this.article.id).subscribe((data) => {
-      this.articleDelete.emit(this.article.id);
+      this.pagerService.getPage(this.pagerService.currentPage);
     });
   }
 

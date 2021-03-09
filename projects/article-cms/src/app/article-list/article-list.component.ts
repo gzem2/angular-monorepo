@@ -1,6 +1,8 @@
 import { Component, OnInit } from '@angular/core';
+import { ActivatedRoute } from '@angular/router';
+import { Observable } from 'rxjs';
 import { Article } from '../shared/article';
-import { ArticlesService } from '../shared/articles.service';
+import { PagerService } from '../shared/pager.service';
 
 @Component({
   selector: 'app-article-list',
@@ -8,26 +10,16 @@ import { ArticlesService } from '../shared/articles.service';
   styleUrls: ['./article-list.component.sass']
 })
 export class ArticleListComponent implements OnInit {
-  articles: Article[] = [];
+  articles$!: Observable<Article[]>;
 
-  constructor(private articlesService: ArticlesService) { }
+  constructor(private pagerService: PagerService,
+    private route: ActivatedRoute) { }
 
   ngOnInit(): void {
     this.getArticles();
   }
 
-  getArticles(): void {
-    this.articlesService.getArticles()
-      .subscribe(articles => this.articles = articles.reverse());
-  }
-
-  articleNew(a: Article) {
-    this.articles.unshift(a);
-  }
-
-  deleteArticle(id: number): void {
-    this.articles = this.articles.filter(function (obj) {
-      return obj.id !== id;
-    });
+  getArticles() {
+    this.articles$ = this.pagerService.subscribeToArticles();
   }
 }

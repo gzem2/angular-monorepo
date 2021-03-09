@@ -1,10 +1,10 @@
 <div class="new-article-form">
     <p>Create new article</p>
-    <app-article-form [newArticle]="true" (createdArticle)="articleNew($event)"></app-article-form>
+    <app-article-form [newArticle]="true"></app-article-form>
 </div>
 
 <div class="article-list">
-    <div class="article" *ngFor="let article of articles">
-        <app-articles [article]="article" (articleDelete)="deleteArticle($event)"></app-articles>
+    <div class="article" *ngFor="let article of articles$ | async">
+        <app-articles [article]="article"></app-articles>
     </div>
 </div>
