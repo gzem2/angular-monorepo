@@ -12,6 +12,7 @@ export class PagerService {
     pageData!: PageData;
     pageData$!: BehaviorSubject<PageData>;
     currentArticles$!: BehaviorSubject<Article[]>;
+    oldArticles: Article[] = [];
 
     constructor(
         private articlesService: ArticlesService,
@@ -32,6 +33,7 @@ export class PagerService {
         this.articlesService.getPage(pagenum)
             .subscribe(pd => {
                 this.pageData = pd;
+                this.currentArticles$.subscribe(arts => this.oldArticles = arts);
                 this.pageData$.next(pd);
                 if(pd['data'])
                     this.currentArticles$.next(pd['data']);

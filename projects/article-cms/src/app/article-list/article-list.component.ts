@@ -19,6 +19,17 @@ export class ArticleListComponent implements OnInit {
     this.getArticles();
   }
 
+  ngAfterViewInit(): void {
+    this.articles$.subscribe(a => {
+      if (a.length !== this.pagerService.oldArticles.length) {
+        console.log('list height mismatch');
+        setTimeout(() => {
+          window.scrollTo({left: 0, top:document.body.scrollHeight, behavior: 'smooth'});
+        }, 100);
+      }
+    });
+  }
+
   getArticles() {
     this.articles$ = this.pagerService.subscribeToArticles();
   }
